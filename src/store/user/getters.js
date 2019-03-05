@@ -17,5 +17,9 @@ export function allSelectableMembers(state){
 	state.belongToGroups.forEach(group=>{
 		members = members.concat(group.members);
 	})
-	return uniqBy(members,'id');
+	let uniqueMembers = uniqBy(members,'id');
+	if(uniqueMembers.length == 0){
+		return [state]
+	}
+	return uniqueMembers;
 }

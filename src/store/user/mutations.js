@@ -30,6 +30,7 @@ export function logout(state) {
   state.id = '';
   state.name = '';
   state.headPic = {};
+  state.belongToGroups = [];
   localStorage.setItem('userId', '');
   localStorage.setItem('hasLogin', false);
 }

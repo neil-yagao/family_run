@@ -86,22 +86,39 @@ export default {
 				label: "全部",
 				children: []
 			};
-			this.involvedGroups.forEach(group => {
-				let groupNode = {
-					label: group.name,
-					id: group.identifyCode,
-					icon: "mdi-account-group-outline",
-					children: []
-				};
-				group.members.forEach(member => {
-					groupNode.children.push({
-						label: member.name,
-						id: member.id,
-						avatar: member.headPic && member.headPic.name? this.baseUrl + "/static/" + member.headPic.name:'/statics/DefaultHead.png'
-					});
+			if (this.involvedGroups.length == 0) {
+				let member = this.$store.state.user;
+				root.children.push({
+					label: member.name,
+					id: member.id,
+					avatar:
+						member.headPic && member.headPic.name
+							? this.baseUrl + "/static/" + member.headPic.name
+							: "/statics/DefaultHead.png"
 				});
-				root.children.push(groupNode);
-			});
+			} else {
+				this.involvedGroups.forEach(group => {
+					let groupNode = {
+						label: group.name,
+						id: group.identifyCode,
+						icon: "mdi-account-group-outline",
+						children: []
+					};
+					group.members.forEach(member => {
+						groupNode.children.push({
+							label: member.name,
+							id: member.id,
+							avatar:
+								member.headPic && member.headPic.name
+									? this.baseUrl +
+									  "/static/" +
+									  member.headPic.name
+									: "/statics/DefaultHead.png"
+						});
+					});
+					root.children.push(groupNode);
+				});
+			}
 			treedUsers.push(root);
 			return treedUsers;
 		},
@@ -115,9 +132,9 @@ export default {
 		value: {
 			type: Array
 		},
-		readOnly:{
-			type:Boolean,
-			default:false
+		readOnly: {
+			type: Boolean,
+			default: false
 		}
 	}
 };

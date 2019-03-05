@@ -10,9 +10,7 @@ import gql from "graphql-tag";
 export default {
 	name: "App",
 	mounted() {
-		/**
-		 * clear all services work
-		 */
+
 		caches.keys().then(names => {
 			for (let name of names) caches.delete(name);
 		});
@@ -27,10 +25,8 @@ export default {
 			});
 			console.log("windown size");
 		});
-		console.log('hasLogin',localStorage.getItem('hasLogin'))
 		if(localStorage.getItem('hasLogin') == 'true'){
 			let userId = localStorage.getItem('userId');
-			console.log('userId',)
 			this.$apollo.query({
 				query:gql` 
 					query findUserById($userId:String!){
