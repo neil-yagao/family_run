@@ -116,7 +116,7 @@ export function loadUserGroupInfo({
         let groups = res.data.getUserGroups;
         console.log("user groups", res.data.getUserGroups);
         commit("setGroups", groups);
-        return res;
+        resolve(res);
       })
   });
 }

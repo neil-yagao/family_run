@@ -9,6 +9,7 @@
 		>
 			<q-toolbar>
 				<q-avatar
+				 v-if="reload"
 				 class="bg-white"
 				 @click="$router.replace('/profile')"
 				>
@@ -22,7 +23,14 @@
 				 @click="$router.replace('/')"
 				>Tasks Bag</h6>
 				<q-space />
-				<q-btn icon="mdi-logout" label="登出" @click="logout" dense flat color="white"></q-btn>
+				<q-btn
+				 icon="mdi-logout"
+				 label="登出"
+				 @click="logout"
+				 dense
+				 flat
+				 color="white"
+				></q-btn>
 			</q-toolbar>
 		</q-header>
 		<q-drawer
@@ -82,7 +90,7 @@
 			 class="text-grey full-width"
 			 indicator-color="white"
 			 align="justify"
-			 narrow-indicator 
+			 narrow-indicator
 			>
 
 				<q-tab
@@ -121,7 +129,8 @@ export default {
 		return {
 			menu: false,
 			leavingAnimation: "",
-			enteringAnimation: ""
+			enteringAnimation: "",
+			reload: true
 		};
 	},
 	methods: {
@@ -135,9 +144,9 @@ export default {
 				this.$router.push("/deleted-tasks");
 			}, 500);
 		},
-		logout(){
-			this.$store.commit('logout');
-			this.$router.replace('/login');
+		logout() {
+			this.$store.commit("logout");
+			this.$router.replace("/login");
 		}
 	},
 	beforeRouteUpdate(to, from, next) {
@@ -152,9 +161,17 @@ export default {
 	},
 	computed: {
 		userHeadPic() {
+			console.log(
+				"current head pic changed",
+				this.$store.getters.currentUserHeadPic
+			);
+			caches.keys().then(names => {
+				console.log('names',names)
+			})
 			if (this.$store.getters.currentUserHeadPic) {
 				return this.$store.getters.currentUserHeadPic;
 			}
+
 			return "/statics/DefaultHead.png";
 		},
 		activeIndicator() {

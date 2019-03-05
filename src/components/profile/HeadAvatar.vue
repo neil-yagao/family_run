@@ -81,12 +81,13 @@ export default {
 			});
 			console.log("file", file);
 			this.$store.commit("setHeadPic",{
-				name:$event,
+				name:"",
 				id:-1
 			})
 			FileUpload()
 				.upload(file, "user_header", this.$store.state.user.id)
 				.then(res => {
+					console.log('reseting headPic');
 					this.$store.commit("setHeadPic", res);
 				});
 		},

@@ -105,7 +105,7 @@
 								 :key="member.id"
 								>
 									<q-avatar>
-										<img :src="baseUrl + '/static/' + member.headPic.name">
+										<img :src="member.headPic&&member.headPic.name?baseUrl + '/static/' + member.headPic.name:'/statics/DefaultHead.png'">
 									</q-avatar>
 									{{member.name}}
 								</q-chip>
@@ -154,6 +154,7 @@ export default {
 		},
 		editUsername() {
 			this.edit = true;
+			
 		},
 		updateUsername() {
 			this.edit = false;

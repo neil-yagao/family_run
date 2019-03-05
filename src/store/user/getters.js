@@ -1,7 +1,8 @@
 
 import {uniqBy} from 'lodash';
 export function currentUserHeadPic(state) {
-	if(state.headPic){
+	console.log('head pic', state.headPic)
+	if(state.headPic && state.headPic.name){
 		return process.env.BASE_URL + '/static/' + state.headPic.name;
 	}
 	return '/statics/DefaultHead.png';

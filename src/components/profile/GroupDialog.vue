@@ -50,19 +50,27 @@
 				</q-card-section>
 
 				<q-card-section class="flex flex-center">
-					<transition name="create-new-group" enter-active-class="animated lightSpeedIn"
-						leave-active-class="animated lightSpeedOut"
+					<transition
+					 name="create-new-group"
+					 enter-active-class="animated lightSpeedIn"
+					 leave-active-class="animated lightSpeedOut"
 					>
 						<q-input
-						v-if="!createdSuccess"
-						dense
-						v-model="groupName"
-						autofocus
-						class="full-width"
-						@keyup.enter="doCreateNewGroup()"
-						key="before"
+						 v-if="!createdSuccess"
+						 dense
+						 v-model="groupName"
+						 autofocus
+						 class="full-width"
+						 @keyup.enter="doCreateNewGroup()"
+						 key="before"
 						/>
-						<q-icon name="mdi-progress-check" class="text-teal" style="font-size: 4.4em;" v-else key="after">
+						<q-icon
+						 name="mdi-progress-check"
+						 class="text-teal"
+						 style="font-size: 4.4em;"
+						 v-else
+						 key="after"
+						>
 						</q-icon>
 					</transition>
 				</q-card-section>
@@ -77,6 +85,7 @@
 					<q-space />
 
 					<q-btn
+					 v-if="!createdSuccess"
 					 flat
 					 color="primary"
 					 label="确定"
@@ -97,7 +106,7 @@ export default {
 			code: "",
 			groupName: "",
 			join: true,
-			createdSuccess:false
+			createdSuccess: false
 		};
 	},
 	methods: {
@@ -107,22 +116,25 @@ export default {
 		},
 		joinTheGroup() {
 			this.prompt = false;
-			this.$store.dispatch('joinGroup',{
-				groupId:this.code,
-				joiner:this.$store.state.user.id
-			}).then(_=>{
-				this.$q.notify({
-					message:'加入小组成功',
-					textColor:'positive',
-					timeout:5000
+			this.$store
+				.dispatch("joinGroup", {
+					groupId: this.code,
+					joiner: this.$store.state.user.id
 				})
-			}).catch(_=>{
-				this.$q.notify({
-					message:'未能找到或已加入小组',
-					textColor:'negative',
-					timeout:5000
+				.then(_ => {
+					this.$q.notify({
+						message: "加入小组成功",
+						textColor: "positive",
+						timeout: 5000
+					});
 				})
-			})
+				.catch(_ => {
+					this.$q.notify({
+						message: "未能找到或已加入小组",
+						textColor: "negative",
+						timeout: 5000
+					});
+				});
 		},
 		createNewGroup() {
 			this.join = false;
@@ -132,13 +144,13 @@ export default {
 				name: this.groupName,
 				creator: this.$store.state.user.id
 			};
-			this.$store.dispatch('createNewGroup',variables).then(()=>{
+			this.$store.dispatch("createNewGroup", variables).then(() => {
 				this.createdSuccess = true;
-				setTimeout(()=>{
+				setTimeout(() => {
 					this.prompt = false;
 					this.createdSuccess = false;
-				},4000)
-			})
+				}, 4000);
+			});
 		}
 	}
 };

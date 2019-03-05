@@ -13,7 +13,7 @@
 			 @remove="removeUser(member)"
 			>
 				<q-avatar>
-					<img :src="baseUrl + '/static/' + member.headPic.name">
+					<img :src="member.headPic&&member.headPic.name?baseUrl + '/static/' + member.headPic.name:'/statics/DefaultHead.png'">
 				</q-avatar>
 				{{member.name}}
 			</q-chip>
@@ -97,7 +97,7 @@ export default {
 					groupNode.children.push({
 						label: member.name,
 						id: member.id,
-						avatar: this.baseUrl + "/static/" + member.headPic.name
+						avatar: member.headPic && member.headPic.name? this.baseUrl + "/static/" + member.headPic.name:'/statics/DefaultHead.png'
 					});
 				});
 				root.children.push(groupNode);
