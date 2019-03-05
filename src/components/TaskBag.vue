@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="task-overall">
 		<div
 		 class="task-brief"
 		 v-if="!isEmpty"
@@ -16,7 +16,7 @@
 		 class="q-mt-xl"
 		>
 		</div>
-		<div class="task-bag bg-purple-3">
+		<div class="task-bag">
 			<q-menu
 			 cover
 			 auto-close
@@ -98,7 +98,10 @@ export default {
 	color: white;
 	text-align: center;
 	text-indent: 0.1em;
-	border: 1px solid black;
+	border: 1px solid  #b3e5fc;
+	opacity: 0.8;
+	background: linear-gradient(var(--q-color-primary), #b3e5fc);
+
 }
 
 .task-bag:before {
@@ -112,10 +115,14 @@ export default {
 }
 
 .task-brief {
-	height: 3.5rem;
-	border: 1px solid black;
-	margin-bottom: -1rem;
+	height: 3rem;
+	border: 1px solid var(--q-color-primary);
+	border-bottom:0px;
+	border-radius: 4px;
+	margin-bottom: -0.6rem;
 	width: 90%;
+	z-index: 10;
 	margin-left: 5%;
 }
+
 </style>

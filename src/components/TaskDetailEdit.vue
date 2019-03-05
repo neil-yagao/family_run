@@ -1,7 +1,6 @@
 <template>
 	<q-card
 	 class="my-card q-ma-sm"
-	 :class="animatedClass"
 	>
 		<q-card-section>
 			<q-input

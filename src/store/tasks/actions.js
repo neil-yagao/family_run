@@ -37,7 +37,9 @@ export function completedTask({
   })
 }
 
-export function reopenDeletedTask({commit},payload){
+export function reopenDeletedTask({
+  commit
+}, payload) {
   let operation = getOperation('onGoing');
   return operatingTask(payload, operation).then(() => {
     commit('removeFromDeletedTasks', payload)
@@ -52,22 +54,14 @@ export function addNewTask({
     apolloClient.mutate({
       mutation: gql `
 				mutation($task: TaskInput!) {
-					addTask(task: $task) {
-						id
-					}
+					addTask(task: $task) 
 				}
 			`,
       variables: {
         task: detail
       }
-    }).then((res) => {
-      let task = {
-        ...res.data.addTask,
-        ...detail,
-        visible:1
-      }
-      commit('appendToOnGoingTasks', task);
-      resolve(task)
+    }).then(_=> {
+      resolve()
     }).catch(reject)
   })
 

@@ -27,6 +27,9 @@
 		<q-card-section>
 			<date-picker v-model="task.dueDate" />
 		</q-card-section>
+		<q-card-section>
+			<user-selection v-model="task.assignTo" />
+		</q-card-section>
 		<q-separator inset />
 		<q-card-section>
 			<q-editor
@@ -68,12 +71,12 @@
 import gql from "graphql-tag";
 import DatePicker from "./general/GeneralDatePicker.vue";
 import taskTemplate from './general/task-template';
-
+import UserSelection from './general/UserSelectionInput.vue'
 export default {
 	name: "TaskDetailCreation",
 	data() {
 		return {
-			task: taskTemplate(),
+			task: taskTemplate([this.$store.state.user.id]),
 			validateClass: false
 		};
 	},
@@ -87,7 +90,8 @@ export default {
 				return;
 			}
 			let detail = {
-				...this.task
+				...this.task,
+				createdBy:this.$store.state.user.id
 			};
 			detail.dueDate = detail.dueDate.replace(/\//g, "-");
 			this.$store.dispatch("addNewTask", detail).then(() => {
@@ -99,10 +103,14 @@ export default {
 		},
 		backToHome() {
 			this.$router.replace("/");
+		},
+		assignTo(selectedUsers){
+			this.task.assignTo = selectedUsers
 		}
 	},
 	components: {
-		DatePicker
+		DatePicker,
+		UserSelection
 	}
 };
 </script>

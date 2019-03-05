@@ -4,7 +4,6 @@ import VueApollo from 'vue-apollo';
 
 Vue.use(VueApollo);
 
-
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient,
 });

@@ -8,10 +8,21 @@
 		 class="bg-primary text-white"
 		>
 			<q-toolbar>
+				<q-avatar
+				 class="bg-white"
+				 @click="$router.replace('/profile')"
+				>
+					<img
+					 :src="userHeadPic"
+					 @click="$router.replace('/profile')"
+					>
+				</q-avatar>
 				<h6
-				 class="q-ma-none"
+				 class="q-ma-none absolute-center"
 				 @click="$router.replace('/')"
-				>Family Run</h6>
+				>Tasks Bag</h6>
+				<q-space />
+				<q-btn icon="mdi-logout" label="登出" @click="logout" dense flat color="white"></q-btn>
 			</q-toolbar>
 		</q-header>
 		<q-drawer
@@ -20,21 +31,33 @@
 		 bordered
 		>
 			<q-list>
-				<q-item clickable ripple @click="$router.replace('/')">
+				<q-item
+				 clickable
+				 ripple
+				 @click="$router.replace('/')"
+				>
 					<q-item-section avatar>
 						<q-icon name="mdi-file-document-box-multiple-outline" />
 					</q-item-section>
 					<q-item-section>正在执行</q-item-section>
 				</q-item>
 				<q-separator />
-				<q-item clickable ripple @click="completedTasks">
+				<q-item
+				 clickable
+				 ripple
+				 @click="completedTasks"
+				>
 					<q-item-section avatar>
 						<q-icon name="mdi-file-document-box-multiple-outline" />
 					</q-item-section>
 					<q-item-section>已完成</q-item-section>
 				</q-item>
 				<q-separator />
-				<q-item  clickable ripple @click="deletedTasks">
+				<q-item
+				 clickable
+				 ripple
+				 @click="deletedTasks"
+				>
 					<q-item-section avatar>
 						<q-icon name="mdi-delete-outline" />
 					</q-item-section>
@@ -53,40 +76,42 @@
 			</transition>
 		</q-page-container>
 		<q-footer class="bg-white">
+			<q-separator />
 			<q-tabs
 			 dense
 			 class="text-grey full-width"
-			 active-color="primary"
-			 indicator-color="primary"
+			 indicator-color="white"
 			 align="justify"
-			 narrow-indicator
+			 narrow-indicator 
 			>
+
 				<q-tab
 				 auto-close
 				 stretch
 				 flat
 				 label="历史"
 				 icon="mdi-calendar-check"
+				 :class="activeIndicator === 1?'text-primary':'text-accent'"
 				 @click="menu = !menu"
 				>
 				</q-tab>
 				<q-route-tab
-				 class="text-accent"
-				 icon="add"
+				 :class="activeIndicator === 2?'text-primary':'text-accent'"
+				 icon="mdi-plus-circle-outline"
 				 label="新增"
 				 to="/new-task"
 				 exact
 				/>
 				<q-route-tab
-				 class="text-secondary"
+				 :class="activeIndicator == 3?'text-primary':'text-accent'"
 				 icon="mdi-account-circle-outline"
 				 label="我的"
 				 to="/profile"
 				 exact
 				/>
+
 			</q-tabs>
 		</q-footer>
-
 	</q-layout>
 </template>
 
@@ -110,16 +135,39 @@ export default {
 				this.$router.push("/deleted-tasks");
 			}, 500);
 		},
+		logout(){
+			this.$store.commit('logout');
+			this.$router.replace('/login');
+		}
 	},
 	beforeRouteUpdate(to, from, next) {
 		console.log("to", to);
 		if (to.meta.enter) {
 			this.enteringAnimation = "animated " + to.meta.enter;
 		}
-		if(from.meta.leave){
-			this.leavingAnimation = "animated " + from.meta.leave
+		if (from.meta.leave) {
+			this.leavingAnimation = "animated " + from.meta.leave;
 		}
 		next();
+	},
+	computed: {
+		userHeadPic() {
+			if (this.$store.getters.currentUserHeadPic) {
+				return this.$store.getters.currentUserHeadPic;
+			}
+			return "/statics/DefaultHead.png";
+		},
+		activeIndicator() {
+			let indicator = 1;
+			if (this.$route.path === "/profile") {
+				indicator = 3;
+			} else if (this.$route.path === "/new-task") {
+				indicator = 2;
+			} else if (this.$route.path === "/") {
+				indicator = 0;
+			}
+			return indicator;
+		}
 	}
 };
 </script>

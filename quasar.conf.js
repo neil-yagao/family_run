@@ -5,7 +5,7 @@ module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
-    boot: ['graphql'],
+    boot: ['graphql', 'axios-boot'],
 
     css: [
       'app.styl'
@@ -22,25 +22,36 @@ module.exports = function (ctx) {
 
     // framework: 'all', // --- includes everything; for dev only!
     framework: {
+      config: {
+        brand: {
+          primary: '#1565c0',
+          accent: '#d50000',
+          secondary: '#9c27b0'
+        }
+      },
       components: [
         'QLayout',
         'QHeader',
         'QFooter',
+        'QBanner',
         'QPageContainer',
         'QPageSticky',
         'QPage',
         'QToolbar',
         'QBtn',
         'QDrawer',
+        'QAvatar',
         'QTabPanels',
         'QTabPanel',
         'QTabs',
         'QTab',
+        'QTree',
         'QRouteTab',
         'QSpace',
         'QIcon',
         'QCard',
         'QCardSection',
+        'QChip',
         'QSeparator',
         'QMenu',
         'QList',
@@ -53,7 +64,9 @@ module.exports = function (ctx) {
         'QPopupProxy',
         'QDate',
         'QDialog',
-        'QEditor'
+        'QEditor',
+        'QSlider', 
+        'QExpansionItem'
       ],
 
       directives: [
@@ -87,7 +100,7 @@ module.exports = function (ctx) {
 
     devServer: {
       // https: true,
-      // port: 8080,
+      port: 8000,
       open: true // opens browser window automatically
     },
 

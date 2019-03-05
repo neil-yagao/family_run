@@ -60,19 +60,6 @@
 				</q-list>
 			</q-card-section>
 		</q-card>
-		<q-page-sticky
-		 position="bottom-left"
-		 :offset="[18, 18]"
-		>
-			<q-btn
-			 fab
-			 icon="mdi-notebook"
-			 color="warning"
-			 push
-			 outline
-			 @click="slideBack()"
-			/>
-		</q-page-sticky>
 		<date-picker
 		 ref="datePicker"
 		 v-model="reopenDueDate"

@@ -1,7 +1,11 @@
 
 export default {
   //
-  onGoingTasks:[],
-  deletedTasks:[],
-  finishedTasks:[]
+  name:'',
+  id:'',
+  headPic:{
+    name:''
+  },
+  hasLogin:false,
+  belongToGroups:[]
 }

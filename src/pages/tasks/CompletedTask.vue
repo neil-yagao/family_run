@@ -23,10 +23,8 @@
 						<q-item
 						 v-for="task in tasks"
 						 :key="task.id"
-						 :class="task.animatedClass"
 						>
 							<q-item-section>{{task.title}}</q-item-section>
-
 							<q-item-section side>
 								<q-btn
 								 size="12px"
@@ -63,20 +61,6 @@
 				</q-list>
 			</q-card-section>
 		</q-card>
-
-		<q-page-sticky
-		 position="bottom-right"
-		 :offset="[18, 18]"
-		>
-			<q-btn
-			 fab
-			 icon="mdi-notebook"
-			 color="primary"
-			 push
-			 outline
-			 @click="slideBack()"
-			/>
-		</q-page-sticky>
 		<date-picker
 		 ref="datePicker"
 		 v-model="reopenDueDate"
@@ -124,10 +108,12 @@ export default {
 		selectedNewDueDate() {
 			let newTask = {
 				...this.reopenTask,
-				dueDate: this.reopenDueDate
+				dueDate: this.reopenDueDate,
+				createdBy:this.reopenTask.createdBy.id
 			};
 			delete newTask.id;
 			delete newTask.__typename;
+			newTask.assignTo = [this.$store.state.user.id]
 			newTask.status = "onGoing";
 			newTask.visible = 1;
 			this.$store.dispatch("addNewTask", newTask).then(task => {

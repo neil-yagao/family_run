@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 
 import tasks from './tasks'
 import user from './user'
-
+import windowSize from './window/window-size'
 Vue.use(Vuex)
 
 /*
@@ -15,7 +15,8 @@ export default function ( /* { ssrContext } */ ) {
   let Store = new Vuex.Store({
     modules: {
       tasks,
-      user
+      user,
+      windowSize
     }
   })
   return Store

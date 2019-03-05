@@ -1,10 +1,7 @@
 <template>
-	<q-page
-	 class="flex"
-	 :class="animatedClass"
-	>
+	<q-page class="flex">
 		<div
-		 class="row full-width q-pa-sm q-mt-sm"
+		 class="row full-width q-pa-sm q-mt-sm "
 		 v-if="currentWindowsWidth < 720"
 		>
 			<div class="col">
@@ -12,7 +9,7 @@
 				 v-model="currentPanel"
 				 animated
 				 swipeable
-				 class="text-white shadow-2 rounded-borders task-bags-list full-width"
+				 class="text-white shadow-2 rounded-borders task-bags-list full-width q-pb-sm"
 				>
 					<q-tab-panel
 					 v-for="p in panels"
@@ -55,9 +52,7 @@ export default {
 	data() {
 		return {
 			currentPanel: "Day",
-			panels: ["Day", "Week", "Month"],
-			animatedClass: "animated fadeIn",
-			currentWindowsWidth: document.body.clientWidth
+			panels: ["Day", "Week", "Month"]
 		};
 	},
 	methods: {
@@ -73,14 +68,19 @@ export default {
 								dueDate
 								status
 								visible
+								createdBy {
+									id
+								}
 							}
 						}
 					`,
 					variables: {
 						condition: {
-							visible: 1
+							visible: 1,
+							assignTo: [this.$store.state.user.id]
 						}
-					}
+					},
+					fetchPolicy: "network-only"
 				})
 				.then(({ data }) => {
 					if (!data.tasks) {
@@ -104,20 +104,26 @@ export default {
 	components: {
 		TaskShelf
 	},
-	mounted() {
-		if (this.$store.state.tasks.onGoingTasks.length === 0) {
-			this.initTasks();
+	computed: {
+		currentWindowsWidth() {
+			return this.$store.getters.windowWidth;
 		}
-		window.addEventListener("resize", () => {
-			this.currentWindowsWidth = document.body.clientWidth;
-			console.log("windown size", this.currentWindowsWidth);
-		});
+	},
+	mounted() {
+		this.initTasks();
+	},
+	watch: {
+		"$store.state.user.id": function(newVal) {
+			if (newVal) {
+				this.initTasks();
+			}
+		}
 	}
 };
 </script>
 <style>
 .task-bags-list {
-	height: 75vh;
+	height: 80vh;
 	overflow-y: auto;
 }
 .stick-bottom {

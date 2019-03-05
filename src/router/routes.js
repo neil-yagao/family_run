@@ -9,6 +9,13 @@ const routes = [{
       leave: 'fadeOut'
     }
   }, {
+    path: '/profile',
+    component: () => import('pages/profile/ProfileMain.vue'),
+    meta: {
+      enter: 'fadeIn',
+      leave: 'fadeOut'
+    }
+  }, {
     path: '/task-detail/:id',
     component: () => import('components/TaskDetailView.vue'),
     meta: {
@@ -44,6 +51,13 @@ const routes = [{
       enter: 'fadeIn'
     }
   }]
+}, {
+  path: '/login',
+  component: () => import('pages/Login.vue'),
+
+  }, {
+  path: '/register',
+  component: () => import('pages/Register.vue'),
 }]
 
 // Always leave this as last one
