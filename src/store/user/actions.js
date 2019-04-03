@@ -23,6 +23,9 @@ export function createNewGroup({
 				headPic {
 					name
 				}
+				avatar {
+					name
+				}
 			}
 		}
 	}
@@ -61,6 +64,9 @@ export function joinGroup({
 				headPic {
 					name
 				}
+				avatar {
+					name
+				}
 			}
 		}
 	}
@@ -96,11 +102,17 @@ export function loadUserGroupInfo({
 									headPic {
 										name
 									}
+									avatar {
+										name
+									}
 								}
 								members {
 									id
 									name
 									headPic {
+										name
+									}
+									avatar {
 										name
 									}
 								}

@@ -46,95 +46,35 @@
 		</div>
 		<q-list
 		 bordered
-		 padding
-		 class="q-mt-md"
+		 separator
+		 class="q-pa-sm q-mt-md"
 		>
-			<q-item-label header>加入的小组</q-item-label>
-			<q-expansion-item
-			 v-for="group in involvedGroups"
-			 expand-separator
-			 group="createdGroup"
-			 :key="group.identifyCode"
-			>
-				<template v-slot:header>
-					<q-item-section avatar>
-						<q-icon
-						 :color="$store.state.user.id === group.createdBy.id?'purple':''"
-						 name="mdi-account-group-outline"
-						/>
-					</q-item-section>
-
-					<q-item-section>
-						<div class="q-item__label">
-							{{group.name}}
-						</div>
-						<div class="q-item__label q-item__label--caption text-caption">
-							创建者:{{group.createdBy.name}}
-						</div>
-					</q-item-section>
-				</template>
-
-				<q-card>
-					<q-card-section class="row items-center">
-						<span class="text-title2 col-3">小组代码:</span>
-						<input
-						 class="col"
-						 v-model="group.identifyCode"
-						 readonly
-						 id="copyFrom"
-						>
-						<q-btn
-						 id="copyBtn"
-						 class="col-3"
-						 flat
-						 color="primary"
-						 @click="copyToClips()"
-						 data-clipboard-target="#copyFrom"
-						>复制</q-btn>
-					</q-card-section>
-					<q-card-section>
-						<div class="row items-cente">
-							<q-icon
-							 name="mdi-account-check"
-							 class="col-1"
-							/>
-							<div class="col-9">
-								<q-chip
-								 dense
-								 v-for="member in group.members.slice(0,2)"
-								 :key="member.id"
-								>
-									<q-avatar>
-										<img :src="member.headPic&&member.headPic.name?baseUrl + '/static/' + member.headPic.name:'/statics/DefaultHead.png'">
-									</q-avatar>
-									{{member.name}}
-								</q-chip>
-							</div>
-							<q-icon
-							 v-if="group.members.length > 2"
-							 class="col-2"
-							 name="mdi-dots-horizontal"
-							/>
-						</div>
-					</q-card-section>
-				</q-card>
-			</q-expansion-item>
-			<q-btn
-			 icon="mdi-plus"
-			 dense
-			 push
-			 flat
-			 class="full-width q-mt-md text-primary"
-			 @click="addNewGroup()"
-			>
-			</q-btn>
+			<q-item>
+				<q-item-section avatar>
+					<q-icon
+					 color="primary"
+					 name="bluetooth"
+					/>
+				</q-item-section>
+				<q-item-section>
+					任务统计
+				</q-item-section>
+				 <q-item-section side>
+					 <q-icon
+					 color="grey"
+					 name="right"/>
+				 </q-item-section>
+			</q-item>
+			<q-item>
+				<q-item-section>
+					使用帮助
+				</q-item-section>
+			</q-item>
 		</q-list>
-		<group-dialog ref="groupDialog" />
 	</q-page>
 </template>
 <script>
 import HeadAvator from "../../components/profile/HeadAvatar.vue";
-import GroupDialog from "../../components/profile/GroupDialog.vue";
 import { mapGetters } from "vuex";
 import gql from "graphql-tag";
 import ClipboardJS from "clipboard";
@@ -144,7 +84,7 @@ export default {
 	data() {
 		return {
 			edit: false,
-			baseUrl: process.env.BASE_URL,
+			baseUrl: process.env.STATIC_URL,
 			username: this.$store.state.user.name
 		};
 	},
@@ -154,7 +94,6 @@ export default {
 		},
 		editUsername() {
 			this.edit = true;
-			
 		},
 		updateUsername() {
 			this.edit = false;
@@ -189,7 +128,10 @@ export default {
 				});
 		},
 		loadUserInfo() {
-			return this.$store.dispatch('loadUserGroupInfo',this.$store.state.user.id);
+			return this.$store.dispatch(
+				"loadUserGroupInfo",
+				this.$store.state.user.id
+			);
 		},
 		copyToClips() {
 			let clipboard = new ClipboardJS("#copyBtn");
@@ -202,8 +144,7 @@ export default {
 		}
 	},
 	components: {
-		HeadAvator,
-		GroupDialog
+		HeadAvator
 	},
 	computed: {
 		...mapGetters(["involvedGroups"])

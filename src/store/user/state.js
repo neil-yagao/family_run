@@ -6,6 +6,9 @@ export default {
   headPic:{
     name:''
   },
+  avatar:{
+    name:''
+  },
   hasLogin:false,
   belongToGroups:[]
 }

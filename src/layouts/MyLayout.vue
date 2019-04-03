@@ -111,7 +111,14 @@
 				 exact
 				/>
 				<q-route-tab
-				 :class="activeIndicator == 3?'text-primary':'text-accent'"
+				 :class="activeIndicator === 3?'text-primary':'text-accent'"
+				 icon="mdi-account-group-outline"
+				 label="小组"
+				 to="/groups"
+				 exact
+				/>
+				<q-route-tab
+				 :class="activeIndicator == 4?'text-primary':'text-accent'"
 				 icon="mdi-account-circle-outline"
 				 label="我的"
 				 to="/profile"
@@ -119,6 +126,38 @@
 				/>
 
 			</q-tabs>
+			<!-- <div class="row q-gutter-none">
+				<q-btn class="col" push>
+					<div class="column items-center">
+					<q-avatar>
+						<img src="/statics/icons/tasks.svg">
+					</q-avatar>
+					<div class="text-primary">
+					历史
+					</div>
+					</div>
+				</q-btn>
+				<q-btn class="col" push>
+					<div class="column items-center">
+					<q-avatar class="col">
+						<img src="/statics/icons/add.svg">
+					</q-avatar>
+						<div class="text-primary col">新增
+
+						</div>
+					</div>
+				</q-btn>
+				<q-btn class="col" push>
+					<div class="column items-center">
+					<q-avatar>
+						<img src="/statics/icons/account.svg">
+					</q-avatar>
+					<div class="text-primary">
+					我的
+					</div>
+					</div>
+				</q-btn>
+			</div> -->
 		</q-footer>
 	</q-layout>
 </template>
@@ -150,7 +189,6 @@ export default {
 		}
 	},
 	beforeRouteUpdate(to, from, next) {
-		console.log("to", to);
 		if (to.meta.enter) {
 			this.enteringAnimation = "animated " + to.meta.enter;
 		}
@@ -161,27 +199,21 @@ export default {
 	},
 	computed: {
 		userHeadPic() {
-			console.log(
-				"current head pic changed",
-				this.$store.getters.currentUserHeadPic
-			);
-			caches.keys().then(names => {
-				console.log('names',names)
-			})
-			if (this.$store.getters.currentUserHeadPic) {
-				return this.$store.getters.currentUserHeadPic;
+			if (this.$store.getters.currentUserAvatar) {
+				return this.$store.getters.currentUserAvatar;
 			}
-
 			return "/statics/DefaultHead.png";
 		},
 		activeIndicator() {
 			let indicator = 1;
 			if (this.$route.path === "/profile") {
-				indicator = 3;
+				indicator = 4;
 			} else if (this.$route.path === "/new-task") {
 				indicator = 2;
 			} else if (this.$route.path === "/") {
 				indicator = 0;
+			}else if(this.$route.path === '/groups'){
+				indicator = 3
 			}
 			return indicator;
 		}

@@ -20,7 +20,7 @@ instance.interceptors.response.use(
   function (response) {
     console.log('receive response', response);
     let data = response.data;
-    return data.msg;
+    return data;
   },
   function (error) {
     return Promise.reject(error);

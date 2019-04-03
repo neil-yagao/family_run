@@ -84,11 +84,11 @@ export default {
 				name:"",
 				id:-1
 			})
-			FileUpload()
-				.upload(file, "user_header", this.$store.state.user.id)
+			let uploadService = FileUpload();
+				uploadService.upload(file, "user_header", this.$store.state.user.id)
 				.then(res => {
-					console.log('reseting headPic');
-					this.$store.commit("setHeadPic", res);
+					console.log('reseting headPic',res);
+					uploadService.process(res.id)
 				});
 		},
 		uploadFile() {

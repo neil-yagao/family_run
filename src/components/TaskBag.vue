@@ -60,15 +60,15 @@ export default {
 			type: Boolean,
 			default: true
 		},
-		task:{
-			type:Object
+		task: {
+			type: Object
 		}
 	},
 	methods: {
 		bounceOut() {
 			this.taskDetailStatus = 1;
 			setTimeout(() => {
-				this.$router.push("/task-detail/" + this.task.id,);
+				this.$router.push("/task-detail/" + this.task.id);
 			}, 500);
 		},
 		delayTask() {
@@ -98,10 +98,13 @@ export default {
 	color: white;
 	text-align: center;
 	text-indent: 0.1em;
-	border: 1px solid  #b3e5fc;
+	border: 1px solid #b3e5fc;
 	opacity: 0.8;
 	background: linear-gradient(var(--q-color-primary), #b3e5fc);
-
+	/* background-image: url("/statics/icons/bag.svg"); */
+	/* background-repeat:no-repeat; */
+	/* background-size: 60%; */
+	/* background-position: center center; */
 }
 
 .task-bag:before {
@@ -117,12 +120,11 @@ export default {
 .task-brief {
 	height: 3rem;
 	border: 1px solid var(--q-color-primary);
-	border-bottom:0px;
+	border-bottom: 0px;
 	border-radius: 4px;
 	margin-bottom: -0.6rem;
 	width: 90%;
 	z-index: 10;
 	margin-left: 5%;
 }
-
 </style>

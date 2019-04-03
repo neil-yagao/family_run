@@ -65,7 +65,7 @@ module.exports = function (ctx) {
         'QDate',
         'QDialog',
         'QEditor',
-        'QSlider', 
+        'QSlider',
         'QExpansionItem'
       ],
 
@@ -94,14 +94,21 @@ module.exports = function (ctx) {
       // extractCSS: false,
       extendWebpack(cfg) {},
       env: {
-        BASE_URL: ctx.dev ? JSON.stringify('http://localhost:3000') : JSON.stringify('https://www.lifting.ren')
+        BASE_URL: ctx.dev ? JSON.stringify('http://localhost:3000') : JSON.stringify('https://www.lifting.ren'),
+        STATIC_URL: ctx.dev ? JSON.stringify('http://localhost:8080') : JSON.stringify('https://www.lifting.ren'),
       }
     },
 
     devServer: {
       // https: true,
+      public: 'http://localhost:8000',
       port: 8000,
-      open: true // opens browser window automatically
+      open: true, // opens browser window automatically
+      proxy: {
+        '/image': {
+          target: "http://localhost:8080"
+        }
+      }
     },
 
     // animations: 'all' --- includes all animations

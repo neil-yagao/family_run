@@ -13,7 +13,7 @@
 			 @remove="removeUser(member)"
 			>
 				<q-avatar>
-					<img :src="member.headPic&&member.headPic.name?baseUrl + '/static/' + member.headPic.name:'/statics/DefaultHead.png'">
+					<img :src="member.avatar&&member.avatar.name?baseUrl + '/static/' + member.avatar.name:'/statics/DefaultHead.png'">
 				</q-avatar>
 				{{member.name}}
 			</q-chip>
@@ -62,7 +62,7 @@ export default {
 	name: "UserSelection",
 	data() {
 		return {
-			baseUrl: process.env.BASE_URL,
+			baseUrl: process.env.STATIC_URL,
 			tickedUser: this.value,
 			userSelecting: false
 		};
@@ -92,8 +92,8 @@ export default {
 					label: member.name,
 					id: member.id,
 					avatar:
-						member.headPic && member.headPic.name
-							? this.baseUrl + "/static/" + member.headPic.name
+						member.avatar && member.avatar.name
+							? this.baseUrl + "/static/" + member.avatar.name
 							: "/statics/DefaultHead.png"
 				});
 			} else {
@@ -109,10 +109,10 @@ export default {
 							label: member.name,
 							id: member.id,
 							avatar:
-								member.headPic && member.headPic.name
+								member.avatar && member.avatar.name
 									? this.baseUrl +
 									  "/static/" +
-									  member.headPic.name
+									  member.avatar.name
 									: "/statics/DefaultHead.png"
 						});
 					});

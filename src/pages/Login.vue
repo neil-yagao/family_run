@@ -45,7 +45,6 @@
 						 push
 						 text-color="accent"
 						 @click="$router.replace('/register')"
-						 
 						><span class="q-px-md">注册</span></q-btn>
 						<q-space />
 						<q-btn
@@ -108,6 +107,9 @@ export default {
 									loc
 									name
 								}
+								avatar {
+									name
+								}
 							}
 						}
 					`,
@@ -115,15 +117,15 @@ export default {
 						username: this.username,
 						password: sha256(this.password) + ""
 					},
-					fetchPolicy:'network-only'
+					fetchPolicy: "network-only"
 				})
 				.then(res => {
 					console.log(res);
-					this.$store.commit('login',res.data.login)
-					this.$router.replace('/')
+					this.$store.commit("login", res.data.login);
+					this.$router.replace("/");
 				})
 				.catch(err => {
-					console.log('err',err)
+					console.log("err", err);
 					this.error = true;
 					setTimeout(() => {
 						this.error = false;
